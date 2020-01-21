@@ -6,12 +6,10 @@ class Form extends React.Component {
     super(props);
     this.state = {
       username : '',
-      time : this.props.getTime(),
+      time : '',
       content : '',
     }
   }
-
-  
 
   createItem = (event)=> {
 
@@ -41,15 +39,20 @@ class Form extends React.Component {
   }
 
   submitForm = () => {
-    this.props.createMessage(this.state);
+    const timetamplet = new Date();
+
+    const tt = timetamplet.toLocaleDateString() + '---' + timetamplet.toLocaleTimeString();
+
+    this.props.createMessage(this.state.username, tt, this.state.content);
 
     // init the message
     this.setState(
       { 
         username : '',
-        time: this.props.getTime(),
+        time : '',
         content : '',
-      })
+      }
+      )
   }
 }
 export default Form;

@@ -37,10 +37,16 @@ class App extends React.Component {
     }
   }
 
-  createMessage = (newMessage) => {
+  createMessage = (username, time, content) => {
+    const newMessage = {
+      username : username,
+      time: time,
+      content: content
+    };
+
     this.setState(
       {
-        message : [...this.state.message, newMessage]
+        message : [newMessage, ...this.state.message]
       }
     )
     
@@ -49,7 +55,7 @@ class App extends React.Component {
   createUser = (newUser) => {
     this.setState(
       {
-        users : [...this.state.users, newUser]
+        users : [newUser, ...this.state.users,]
       }
     )
 
@@ -68,14 +74,6 @@ class App extends React.Component {
     )
   }
 
-  getTime = () => {
-    let timeStamp = new Date();
-    return timeStamp.toLocaleDateString() + ' ' + timeStamp.toLocaleTimeString()  
-  }
-
-
-  
-
 
   render () {
     return (
@@ -89,7 +87,7 @@ class App extends React.Component {
         <Users createUser = {this.createUser}/>
 
         <Content selectedUser = {this.state.name} users = {this.state.users}  message = {this.state.message}/>
-        <Form getTime = {this.getTime} users = {this.state.users} createMessage = {this.createMessage} />
+        <Form users = {this.state.users} createMessage = {this.createMessage} />
       </div>
     )
   }
